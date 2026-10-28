@@ -1,0 +1,1005 @@
+{
+  "_type": "export",
+  "__export_format": 4,
+  "__export_source": "stetica",
+  "resources": [
+    {
+      "_id": "wrk_stetica",
+      "_type": "workspace",
+      "name": "Stetica API",
+      "description": "Fluxo local de demonstração. Veja docs/testes-api.md.",
+      "scope": "collection"
+    },
+    {
+      "_id": "env_stetica",
+      "_type": "environment",
+      "parentId": "wrk_stetica",
+      "name": "Base Environment",
+      "data": {
+        "base_url": "http://localhost:5080",
+        "admin_key": "",
+        "cliente_token": "",
+        "categoria_id": 0,
+        "produto_id": 0,
+        "servico_id": 0,
+        "funcionario_id": 0,
+        "cliente_id": 0,
+        "pedido_id": 0,
+        "entrada_id": 0
+      },
+      "dataPropertyOrder": null,
+      "color": null,
+      "isPrivate": false
+    },
+    {
+      "_id": "fld_publico",
+      "_type": "request_group",
+      "parentId": "wrk_stetica",
+      "name": "01 · Consultas públicas",
+      "description": "",
+      "environment": {}
+    },
+    {
+      "_id": "fld_contas",
+      "_type": "request_group",
+      "parentId": "wrk_stetica",
+      "name": "02 · Clientes e sessão",
+      "description": "",
+      "environment": {}
+    },
+    {
+      "_id": "fld_pedidos",
+      "_type": "request_group",
+      "parentId": "wrk_stetica",
+      "name": "03 · Pedidos do cliente",
+      "description": "",
+      "environment": {}
+    },
+    {
+      "_id": "fld_admin",
+      "_type": "request_group",
+      "parentId": "wrk_stetica",
+      "name": "04 · Administração",
+      "description": "",
+      "environment": {}
+    },
+    {
+      "_id": "fld_estoque",
+      "_type": "request_group",
+      "parentId": "wrk_stetica",
+      "name": "05 · Estoque e entradas",
+      "description": "",
+      "environment": {}
+    },
+    {
+      "_id": "fld_gestao",
+      "_type": "request_group",
+      "parentId": "wrk_stetica",
+      "name": "06 · Gestão de pedidos",
+      "description": "",
+      "environment": {}
+    },
+    {
+      "_id": "req_stetica_8",
+      "_type": "request",
+      "parentId": "fld_publico",
+      "name": "Saúde da API",
+      "method": "GET",
+      "url": "{{ _.base_url }}/api/saude",
+      "headers": [],
+      "parameters": [],
+      "authentication": {},
+      "body": {},
+      "description": "Resultado esperado: HTTP 200. Preencha as variáveis do ambiente conforme docs/testes-api.md.",
+      "settingStoreCookies": false,
+      "settingSendCookies": false
+    },
+    {
+      "_id": "req_stetica_9",
+      "_type": "request",
+      "parentId": "fld_publico",
+      "name": "Categorias",
+      "method": "GET",
+      "url": "{{ _.base_url }}/api/categorias",
+      "headers": [],
+      "parameters": [],
+      "authentication": {},
+      "body": {},
+      "description": "Resultado esperado: HTTP 200. Preencha as variáveis do ambiente conforme docs/testes-api.md.",
+      "settingStoreCookies": false,
+      "settingSendCookies": false
+    },
+    {
+      "_id": "req_stetica_10",
+      "_type": "request",
+      "parentId": "fld_publico",
+      "name": "Categoria por ID",
+      "method": "GET",
+      "url": "{{ _.base_url }}/api/categorias/{{ _.categoria_id }}",
+      "headers": [],
+      "parameters": [],
+      "authentication": {},
+      "body": {},
+      "description": "Resultado esperado: HTTP 200. Preencha as variáveis do ambiente conforme docs/testes-api.md.",
+      "settingStoreCookies": false,
+      "settingSendCookies": false
+    },
+    {
+      "_id": "req_stetica_11",
+      "_type": "request",
+      "parentId": "fld_publico",
+      "name": "Catálogo",
+      "method": "GET",
+      "url": "{{ _.base_url }}/api/itens",
+      "headers": [],
+      "parameters": [],
+      "authentication": {},
+      "body": {},
+      "description": "Resultado esperado: HTTP 200. Preencha as variáveis do ambiente conforme docs/testes-api.md.",
+      "settingStoreCookies": false,
+      "settingSendCookies": false
+    },
+    {
+      "_id": "req_stetica_12",
+      "_type": "request",
+      "parentId": "fld_publico",
+      "name": "Produto por ID",
+      "method": "GET",
+      "url": "{{ _.base_url }}/api/itens/{{ _.produto_id }}",
+      "headers": [],
+      "parameters": [],
+      "authentication": {},
+      "body": {},
+      "description": "Resultado esperado: HTTP 200. Preencha as variáveis do ambiente conforme docs/testes-api.md.",
+      "settingStoreCookies": false,
+      "settingSendCookies": false
+    },
+    {
+      "_id": "req_stetica_13",
+      "_type": "request",
+      "parentId": "fld_publico",
+      "name": "Filtro por nome, categoria e tipo",
+      "method": "GET",
+      "url": "{{ _.base_url }}/api/itens?busca=facial&categoriaId={{ _.categoria_id }}&tipo=P",
+      "headers": [],
+      "parameters": [],
+      "authentication": {},
+      "body": {},
+      "description": "Resultado esperado: HTTP 200. Preencha as variáveis do ambiente conforme docs/testes-api.md.",
+      "settingStoreCookies": false,
+      "settingSendCookies": false
+    },
+    {
+      "_id": "req_stetica_14",
+      "_type": "request",
+      "parentId": "fld_publico",
+      "name": "Equipe ativa",
+      "method": "GET",
+      "url": "{{ _.base_url }}/api/equipe",
+      "headers": [],
+      "parameters": [],
+      "authentication": {},
+      "body": {},
+      "description": "Resultado esperado: HTTP 200. Preencha as variáveis do ambiente conforme docs/testes-api.md.",
+      "settingStoreCookies": false,
+      "settingSendCookies": false
+    },
+    {
+      "_id": "req_stetica_15",
+      "_type": "request",
+      "parentId": "fld_contas",
+      "name": "Cadastrar cliente (altere CPF/e-mail em novas execuções)",
+      "method": "POST",
+      "url": "{{ _.base_url }}/api/clientes",
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "parameters": [],
+      "authentication": {},
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"nome\": \"Cliente Insomnia\",\n  \"cpf\": \"22233344455\",\n  \"dataNascimento\": \"1995-06-15\",\n  \"sexo\": \"O\",\n  \"email\": \"cliente.insomnia@stetica.example\",\n  \"telefone\": \"11977776666\",\n  \"endereco\": {\n    \"cep\": \"01001000\",\n    \"logradouro\": \"Rua Fictícia\",\n    \"bairro\": \"Centro\",\n    \"cidade\": \"São Paulo\",\n    \"uf\": \"SP\",\n    \"numero\": \"20\",\n    \"complemento\": \"Teste Insomnia\"\n  },\n  \"senha\": \"SteticaTeste@123\"\n}"
+      },
+      "description": "Resultado esperado: HTTP 201. Preencha as variáveis do ambiente conforme docs/testes-api.md.",
+      "settingStoreCookies": false,
+      "settingSendCookies": false
+    },
+    {
+      "_id": "req_stetica_16",
+      "_type": "request",
+      "parentId": "fld_contas",
+      "name": "Entrar com cliente de demonstração",
+      "method": "POST",
+      "url": "{{ _.base_url }}/api/sessoes",
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "parameters": [],
+      "authentication": {},
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"email\": \"cliente.demo@stetica.example\",\n  \"senha\": \"SteticaDemo@123\"\n}"
+      },
+      "description": "Resultado esperado: HTTP 200. Preencha as variáveis do ambiente conforme docs/testes-api.md.",
+      "settingStoreCookies": false,
+      "settingSendCookies": false
+    },
+    {
+      "_id": "req_stetica_17",
+      "_type": "request",
+      "parentId": "fld_contas",
+      "name": "Sair da sessão",
+      "method": "DELETE",
+      "url": "{{ _.base_url }}/api/sessoes",
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer {{ _.cliente_token }}"
+        }
+      ],
+      "parameters": [],
+      "authentication": {},
+      "body": {},
+      "description": "Resultado esperado: HTTP 204. Preencha as variáveis do ambiente conforme docs/testes-api.md.",
+      "settingStoreCookies": false,
+      "settingSendCookies": false
+    },
+    {
+      "_id": "req_stetica_18",
+      "_type": "request",
+      "parentId": "fld_pedidos",
+      "name": "Confirmar pedido de produto e serviço",
+      "method": "POST",
+      "url": "{{ _.base_url }}/api/pedidos",
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        },
+        {
+          "name": "Authorization",
+          "value": "Bearer {{ _.cliente_token }}"
+        }
+      ],
+      "parameters": [],
+      "authentication": {},
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"itens\": [\n    {\n      \"itemId\": {{ _.produto_id }},\n      \"quantidade\": 1,\n      \"funcionarioId\": {{ _.funcionario_id }}\n    },\n    {\n      \"itemId\": {{ _.servico_id }},\n      \"quantidade\": 1,\n      \"funcionarioId\": {{ _.funcionario_id }}\n    }\n  ]\n}"
+      },
+      "description": "Resultado esperado: HTTP 201. Preencha as variáveis do ambiente conforme docs/testes-api.md.",
+      "settingStoreCookies": false,
+      "settingSendCookies": false
+    },
+    {
+      "_id": "req_stetica_19",
+      "_type": "request",
+      "parentId": "fld_pedidos",
+      "name": "Meus pedidos",
+      "method": "GET",
+      "url": "{{ _.base_url }}/api/meus-pedidos",
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer {{ _.cliente_token }}"
+        }
+      ],
+      "parameters": [],
+      "authentication": {},
+      "body": {},
+      "description": "Resultado esperado: HTTP 200. Preencha as variáveis do ambiente conforme docs/testes-api.md.",
+      "settingStoreCookies": false,
+      "settingSendCookies": false
+    },
+    {
+      "_id": "req_stetica_20",
+      "_type": "request",
+      "parentId": "fld_pedidos",
+      "name": "Meu pedido por ID",
+      "method": "GET",
+      "url": "{{ _.base_url }}/api/meus-pedidos/{{ _.pedido_id }}",
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer {{ _.cliente_token }}"
+        }
+      ],
+      "parameters": [],
+      "authentication": {},
+      "body": {},
+      "description": "Resultado esperado: HTTP 200. Preencha as variáveis do ambiente conforme docs/testes-api.md.",
+      "settingStoreCookies": false,
+      "settingSendCookies": false
+    },
+    {
+      "_id": "req_stetica_21",
+      "_type": "request",
+      "parentId": "fld_admin",
+      "name": "Resumo administrativo",
+      "method": "GET",
+      "url": "{{ _.base_url }}/api/resumo",
+      "headers": [
+        {
+          "name": "X-Admin-Key",
+          "value": "{{ _.admin_key }}"
+        }
+      ],
+      "parameters": [],
+      "authentication": {},
+      "body": {},
+      "description": "Resultado esperado: HTTP 200. Preencha as variáveis do ambiente conforme docs/testes-api.md.",
+      "settingStoreCookies": false,
+      "settingSendCookies": false
+    },
+    {
+      "_id": "req_stetica_22",
+      "_type": "request",
+      "parentId": "fld_admin",
+      "name": "Todos os itens (inclui inativos)",
+      "method": "GET",
+      "url": "{{ _.base_url }}/api/admin/itens",
+      "headers": [
+        {
+          "name": "X-Admin-Key",
+          "value": "{{ _.admin_key }}"
+        }
+      ],
+      "parameters": [],
+      "authentication": {},
+      "body": {},
+      "description": "Resultado esperado: HTTP 200. Preencha as variáveis do ambiente conforme docs/testes-api.md.",
+      "settingStoreCookies": false,
+      "settingSendCookies": false
+    },
+    {
+      "_id": "req_stetica_23",
+      "_type": "request",
+      "parentId": "fld_admin",
+      "name": "Criar categoria",
+      "method": "POST",
+      "url": "{{ _.base_url }}/api/categorias",
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        },
+        {
+          "name": "X-Admin-Key",
+          "value": "{{ _.admin_key }}"
+        }
+      ],
+      "parameters": [],
+      "authentication": {},
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"nome\": \"Categoria Insomnia\"\n}"
+      },
+      "description": "Resultado esperado: HTTP 201. Preencha as variáveis do ambiente conforme docs/testes-api.md.",
+      "settingStoreCookies": false,
+      "settingSendCookies": false
+    },
+    {
+      "_id": "req_stetica_24",
+      "_type": "request",
+      "parentId": "fld_admin",
+      "name": "Editar categoria",
+      "method": "PUT",
+      "url": "{{ _.base_url }}/api/categorias/{{ _.categoria_id }}",
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        },
+        {
+          "name": "X-Admin-Key",
+          "value": "{{ _.admin_key }}"
+        }
+      ],
+      "parameters": [],
+      "authentication": {},
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"nome\": \"Cuidados faciais\"\n}"
+      },
+      "description": "Resultado esperado: HTTP 204. Preencha as variáveis do ambiente conforme docs/testes-api.md.",
+      "settingStoreCookies": false,
+      "settingSendCookies": false
+    },
+    {
+      "_id": "req_stetica_25",
+      "_type": "request",
+      "parentId": "fld_admin",
+      "name": "Excluir categoria (409 se houver itens)",
+      "method": "DELETE",
+      "url": "{{ _.base_url }}/api/categorias/{{ _.categoria_id }}",
+      "headers": [
+        {
+          "name": "X-Admin-Key",
+          "value": "{{ _.admin_key }}"
+        }
+      ],
+      "parameters": [],
+      "authentication": {},
+      "body": {},
+      "description": "Resultado esperado: HTTP 204 ou 409 se vinculada. Preencha as variáveis do ambiente conforme docs/testes-api.md.",
+      "settingStoreCookies": false,
+      "settingSendCookies": false
+    },
+    {
+      "_id": "req_stetica_26",
+      "_type": "request",
+      "parentId": "fld_admin",
+      "name": "Criar produto",
+      "method": "POST",
+      "url": "{{ _.base_url }}/api/itens",
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        },
+        {
+          "name": "X-Admin-Key",
+          "value": "{{ _.admin_key }}"
+        }
+      ],
+      "parameters": [],
+      "authentication": {},
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"nome\": \"Produto Insomnia\",\n  \"descricao\": \"Produto fictício para teste\",\n  \"categoriaId\": {{ _.categoria_id }},\n  \"tipo\": \"P\",\n  \"preco\": 50,\n  \"ativo\": true,\n  \"codigoPreco\": 2,\n  \"unidade\": \"UN\"\n}"
+      },
+      "description": "Resultado esperado: HTTP 201. Preencha as variáveis do ambiente conforme docs/testes-api.md.",
+      "settingStoreCookies": false,
+      "settingSendCookies": false
+    },
+    {
+      "_id": "req_stetica_27",
+      "_type": "request",
+      "parentId": "fld_admin",
+      "name": "Criar serviço",
+      "method": "POST",
+      "url": "{{ _.base_url }}/api/itens",
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        },
+        {
+          "name": "X-Admin-Key",
+          "value": "{{ _.admin_key }}"
+        }
+      ],
+      "parameters": [],
+      "authentication": {},
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"nome\": \"Serviço Insomnia\",\n  \"descricao\": \"Produto fictício para teste\",\n  \"categoriaId\": {{ _.categoria_id }},\n  \"tipo\": \"S\",\n  \"preco\": 90,\n  \"ativo\": true,\n  \"codigoPreco\": 2,\n  \"unidade\": \"UN\"\n}"
+      },
+      "description": "Resultado esperado: HTTP 201. Preencha as variáveis do ambiente conforme docs/testes-api.md.",
+      "settingStoreCookies": false,
+      "settingSendCookies": false
+    },
+    {
+      "_id": "req_stetica_28",
+      "_type": "request",
+      "parentId": "fld_admin",
+      "name": "Editar produto",
+      "method": "PUT",
+      "url": "{{ _.base_url }}/api/itens/{{ _.produto_id }}",
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        },
+        {
+          "name": "X-Admin-Key",
+          "value": "{{ _.admin_key }}"
+        }
+      ],
+      "parameters": [],
+      "authentication": {},
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"nome\": \"Produto Insomnia\",\n  \"descricao\": \"Produto fictício para teste\",\n  \"categoriaId\": {{ _.categoria_id }},\n  \"tipo\": \"P\",\n  \"preco\": 50,\n  \"ativo\": true,\n  \"codigoPreco\": 2,\n  \"unidade\": \"UN\"\n}"
+      },
+      "description": "Resultado esperado: HTTP 204. Preencha as variáveis do ambiente conforme docs/testes-api.md.",
+      "settingStoreCookies": false,
+      "settingSendCookies": false
+    },
+    {
+      "_id": "req_stetica_29",
+      "_type": "request",
+      "parentId": "fld_admin",
+      "name": "Desativar produto (execute por último)",
+      "method": "DELETE",
+      "url": "{{ _.base_url }}/api/itens/{{ _.produto_id }}",
+      "headers": [
+        {
+          "name": "X-Admin-Key",
+          "value": "{{ _.admin_key }}"
+        }
+      ],
+      "parameters": [],
+      "authentication": {},
+      "body": {},
+      "description": "Resultado esperado: HTTP 204. Preencha as variáveis do ambiente conforme docs/testes-api.md.",
+      "settingStoreCookies": false,
+      "settingSendCookies": false
+    },
+    {
+      "_id": "req_stetica_30",
+      "_type": "request",
+      "parentId": "fld_admin",
+      "name": "Listar Clientes",
+      "method": "GET",
+      "url": "{{ _.base_url }}/api/pessoas",
+      "headers": [
+        {
+          "name": "X-Admin-Key",
+          "value": "{{ _.admin_key }}"
+        }
+      ],
+      "parameters": [],
+      "authentication": {},
+      "body": {},
+      "description": "Resultado esperado: HTTP 200. Preencha as variáveis do ambiente conforme docs/testes-api.md.",
+      "settingStoreCookies": false,
+      "settingSendCookies": false
+    },
+    {
+      "_id": "req_stetica_31",
+      "_type": "request",
+      "parentId": "fld_admin",
+      "name": "Clientes por ID",
+      "method": "GET",
+      "url": "{{ _.base_url }}/api/pessoas/{{ _.cliente_id }}",
+      "headers": [
+        {
+          "name": "X-Admin-Key",
+          "value": "{{ _.admin_key }}"
+        }
+      ],
+      "parameters": [],
+      "authentication": {},
+      "body": {},
+      "description": "Resultado esperado: HTTP 200. Preencha as variáveis do ambiente conforme docs/testes-api.md.",
+      "settingStoreCookies": false,
+      "settingSendCookies": false
+    },
+    {
+      "_id": "req_stetica_32",
+      "_type": "request",
+      "parentId": "fld_admin",
+      "name": "Editar Clientes",
+      "method": "PUT",
+      "url": "{{ _.base_url }}/api/pessoas/{{ _.cliente_id }}",
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        },
+        {
+          "name": "X-Admin-Key",
+          "value": "{{ _.admin_key }}"
+        }
+      ],
+      "parameters": [],
+      "authentication": {},
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"nome\": \"Cliente Insomnia\",\n  \"cpf\": \"22233344455\",\n  \"dataNascimento\": \"1995-06-15\",\n  \"sexo\": \"O\",\n  \"email\": \"cliente.insomnia@stetica.example\",\n  \"telefone\": \"11977776666\",\n  \"endereco\": {\n    \"cep\": \"01001000\",\n    \"logradouro\": \"Rua Fictícia\",\n    \"bairro\": \"Centro\",\n    \"cidade\": \"São Paulo\",\n    \"uf\": \"SP\",\n    \"numero\": \"20\",\n    \"complemento\": \"Teste Insomnia\"\n  }\n}"
+      },
+      "description": "Resultado esperado: HTTP 204. Preencha as variáveis do ambiente conforme docs/testes-api.md.",
+      "settingStoreCookies": false,
+      "settingSendCookies": false
+    },
+    {
+      "_id": "req_stetica_33",
+      "_type": "request",
+      "parentId": "fld_admin",
+      "name": "Desativar Clientes (execute por último)",
+      "method": "DELETE",
+      "url": "{{ _.base_url }}/api/pessoas/{{ _.cliente_id }}",
+      "headers": [
+        {
+          "name": "X-Admin-Key",
+          "value": "{{ _.admin_key }}"
+        }
+      ],
+      "parameters": [],
+      "authentication": {},
+      "body": {},
+      "description": "Resultado esperado: HTTP 204. Preencha as variáveis do ambiente conforme docs/testes-api.md.",
+      "settingStoreCookies": false,
+      "settingSendCookies": false
+    },
+    {
+      "_id": "req_stetica_34",
+      "_type": "request",
+      "parentId": "fld_admin",
+      "name": "Listar Funcionários",
+      "method": "GET",
+      "url": "{{ _.base_url }}/api/funcionarios",
+      "headers": [
+        {
+          "name": "X-Admin-Key",
+          "value": "{{ _.admin_key }}"
+        }
+      ],
+      "parameters": [],
+      "authentication": {},
+      "body": {},
+      "description": "Resultado esperado: HTTP 200. Preencha as variáveis do ambiente conforme docs/testes-api.md.",
+      "settingStoreCookies": false,
+      "settingSendCookies": false
+    },
+    {
+      "_id": "req_stetica_35",
+      "_type": "request",
+      "parentId": "fld_admin",
+      "name": "Funcionários por ID",
+      "method": "GET",
+      "url": "{{ _.base_url }}/api/funcionarios/{{ _.funcionario_id }}",
+      "headers": [
+        {
+          "name": "X-Admin-Key",
+          "value": "{{ _.admin_key }}"
+        }
+      ],
+      "parameters": [],
+      "authentication": {},
+      "body": {},
+      "description": "Resultado esperado: HTTP 200. Preencha as variáveis do ambiente conforme docs/testes-api.md.",
+      "settingStoreCookies": false,
+      "settingSendCookies": false
+    },
+    {
+      "_id": "req_stetica_36",
+      "_type": "request",
+      "parentId": "fld_admin",
+      "name": "Cadastrar funcionário",
+      "method": "POST",
+      "url": "{{ _.base_url }}/api/funcionarios",
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        },
+        {
+          "name": "X-Admin-Key",
+          "value": "{{ _.admin_key }}"
+        }
+      ],
+      "parameters": [],
+      "authentication": {},
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"nome\": \"Funcionário Insomnia\",\n  \"cpf\": \"44433322211\",\n  \"dataNascimento\": \"1995-06-15\",\n  \"sexo\": \"O\",\n  \"email\": \"funcionario.insomnia@stetica.example\",\n  \"telefone\": \"11977776666\",\n  \"endereco\": {\n    \"cep\": \"01001000\",\n    \"logradouro\": \"Rua Fictícia\",\n    \"bairro\": \"Centro\",\n    \"cidade\": \"São Paulo\",\n    \"uf\": \"SP\",\n    \"numero\": \"20\",\n    \"complemento\": \"Teste Insomnia\"\n  },\n  \"cargo\": \"Esteticista\",\n  \"dataAdmissao\": \"2024-01-01\"\n}"
+      },
+      "description": "Resultado esperado: HTTP 201. Preencha as variáveis do ambiente conforme docs/testes-api.md.",
+      "settingStoreCookies": false,
+      "settingSendCookies": false
+    },
+    {
+      "_id": "req_stetica_37",
+      "_type": "request",
+      "parentId": "fld_admin",
+      "name": "Editar Funcionários",
+      "method": "PUT",
+      "url": "{{ _.base_url }}/api/funcionarios/{{ _.funcionario_id }}",
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        },
+        {
+          "name": "X-Admin-Key",
+          "value": "{{ _.admin_key }}"
+        }
+      ],
+      "parameters": [],
+      "authentication": {},
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"nome\": \"Funcionário Insomnia\",\n  \"cpf\": \"44433322211\",\n  \"dataNascimento\": \"1995-06-15\",\n  \"sexo\": \"O\",\n  \"email\": \"funcionario.insomnia@stetica.example\",\n  \"telefone\": \"11977776666\",\n  \"endereco\": {\n    \"cep\": \"01001000\",\n    \"logradouro\": \"Rua Fictícia\",\n    \"bairro\": \"Centro\",\n    \"cidade\": \"São Paulo\",\n    \"uf\": \"SP\",\n    \"numero\": \"20\",\n    \"complemento\": \"Teste Insomnia\"\n  },\n  \"cargo\": \"Esteticista\",\n  \"dataAdmissao\": \"2024-01-01\"\n}"
+      },
+      "description": "Resultado esperado: HTTP 204. Preencha as variáveis do ambiente conforme docs/testes-api.md.",
+      "settingStoreCookies": false,
+      "settingSendCookies": false
+    },
+    {
+      "_id": "req_stetica_38",
+      "_type": "request",
+      "parentId": "fld_admin",
+      "name": "Desativar Funcionários (execute por último)",
+      "method": "DELETE",
+      "url": "{{ _.base_url }}/api/funcionarios/{{ _.funcionario_id }}",
+      "headers": [
+        {
+          "name": "X-Admin-Key",
+          "value": "{{ _.admin_key }}"
+        }
+      ],
+      "parameters": [],
+      "authentication": {},
+      "body": {},
+      "description": "Resultado esperado: HTTP 204. Preencha as variáveis do ambiente conforme docs/testes-api.md.",
+      "settingStoreCookies": false,
+      "settingSendCookies": false
+    },
+    {
+      "_id": "req_stetica_39",
+      "_type": "request",
+      "parentId": "fld_estoque",
+      "name": "Consultar estoque",
+      "method": "GET",
+      "url": "{{ _.base_url }}/api/estoque",
+      "headers": [
+        {
+          "name": "X-Admin-Key",
+          "value": "{{ _.admin_key }}"
+        }
+      ],
+      "parameters": [],
+      "authentication": {},
+      "body": {},
+      "description": "Resultado esperado: HTTP 200. Preencha as variáveis do ambiente conforme docs/testes-api.md.",
+      "settingStoreCookies": false,
+      "settingSendCookies": false
+    },
+    {
+      "_id": "req_stetica_40",
+      "_type": "request",
+      "parentId": "fld_estoque",
+      "name": "Estoque de um produto",
+      "method": "GET",
+      "url": "{{ _.base_url }}/api/estoque/{{ _.produto_id }}",
+      "headers": [
+        {
+          "name": "X-Admin-Key",
+          "value": "{{ _.admin_key }}"
+        }
+      ],
+      "parameters": [],
+      "authentication": {},
+      "body": {},
+      "description": "Resultado esperado: HTTP 200. Preencha as variáveis do ambiente conforme docs/testes-api.md.",
+      "settingStoreCookies": false,
+      "settingSendCookies": false
+    },
+    {
+      "_id": "req_stetica_41",
+      "_type": "request",
+      "parentId": "fld_estoque",
+      "name": "Listar entradas",
+      "method": "GET",
+      "url": "{{ _.base_url }}/api/entradaprodutos",
+      "headers": [
+        {
+          "name": "X-Admin-Key",
+          "value": "{{ _.admin_key }}"
+        }
+      ],
+      "parameters": [],
+      "authentication": {},
+      "body": {},
+      "description": "Resultado esperado: HTTP 200. Preencha as variáveis do ambiente conforme docs/testes-api.md.",
+      "settingStoreCookies": false,
+      "settingSendCookies": false
+    },
+    {
+      "_id": "req_stetica_42",
+      "_type": "request",
+      "parentId": "fld_estoque",
+      "name": "Entrada por ID",
+      "method": "GET",
+      "url": "{{ _.base_url }}/api/entradaprodutos/{{ _.entrada_id }}",
+      "headers": [
+        {
+          "name": "X-Admin-Key",
+          "value": "{{ _.admin_key }}"
+        }
+      ],
+      "parameters": [],
+      "authentication": {},
+      "body": {},
+      "description": "Resultado esperado: HTTP 200. Preencha as variáveis do ambiente conforme docs/testes-api.md.",
+      "settingStoreCookies": false,
+      "settingSendCookies": false
+    },
+    {
+      "_id": "req_stetica_43",
+      "_type": "request",
+      "parentId": "fld_estoque",
+      "name": "Registrar entrada (aumenta estoque)",
+      "method": "POST",
+      "url": "{{ _.base_url }}/api/entradaprodutos",
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        },
+        {
+          "name": "X-Admin-Key",
+          "value": "{{ _.admin_key }}"
+        }
+      ],
+      "parameters": [],
+      "authentication": {},
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"produtoId\": {{ _.produto_id }},\n  \"quantidade\": 5,\n  \"data\": \"2024-01-01\",\n  \"valorUnitario\": 50\n}"
+      },
+      "description": "Resultado esperado: HTTP 201. Preencha as variáveis do ambiente conforme docs/testes-api.md.",
+      "settingStoreCookies": false,
+      "settingSendCookies": false
+    },
+    {
+      "_id": "req_stetica_44",
+      "_type": "request",
+      "parentId": "fld_gestao",
+      "name": "Todos os pedidos",
+      "method": "GET",
+      "url": "{{ _.base_url }}/api/pedidos",
+      "headers": [
+        {
+          "name": "X-Admin-Key",
+          "value": "{{ _.admin_key }}"
+        }
+      ],
+      "parameters": [],
+      "authentication": {},
+      "body": {},
+      "description": "Resultado esperado: HTTP 200. Preencha as variáveis do ambiente conforme docs/testes-api.md.",
+      "settingStoreCookies": false,
+      "settingSendCookies": false
+    },
+    {
+      "_id": "req_stetica_45",
+      "_type": "request",
+      "parentId": "fld_gestao",
+      "name": "Pedidos em aberto",
+      "method": "GET",
+      "url": "{{ _.base_url }}/api/pedidos?status=Aberto",
+      "headers": [
+        {
+          "name": "X-Admin-Key",
+          "value": "{{ _.admin_key }}"
+        }
+      ],
+      "parameters": [],
+      "authentication": {},
+      "body": {},
+      "description": "Resultado esperado: HTTP 200. Preencha as variáveis do ambiente conforme docs/testes-api.md.",
+      "settingStoreCookies": false,
+      "settingSendCookies": false
+    },
+    {
+      "_id": "req_stetica_46",
+      "_type": "request",
+      "parentId": "fld_gestao",
+      "name": "Pedido por ID",
+      "method": "GET",
+      "url": "{{ _.base_url }}/api/pedidos/{{ _.pedido_id }}",
+      "headers": [
+        {
+          "name": "X-Admin-Key",
+          "value": "{{ _.admin_key }}"
+        }
+      ],
+      "parameters": [],
+      "authentication": {},
+      "body": {},
+      "description": "Resultado esperado: HTTP 200. Preencha as variáveis do ambiente conforme docs/testes-api.md.",
+      "settingStoreCookies": false,
+      "settingSendCookies": false
+    },
+    {
+      "_id": "req_stetica_47",
+      "_type": "request",
+      "parentId": "fld_gestao",
+      "name": "Pedidos de um cliente",
+      "method": "GET",
+      "url": "{{ _.base_url }}/api/pessoas/{{ _.cliente_id }}/pedidos",
+      "headers": [
+        {
+          "name": "X-Admin-Key",
+          "value": "{{ _.admin_key }}"
+        }
+      ],
+      "parameters": [],
+      "authentication": {},
+      "body": {},
+      "description": "Resultado esperado: HTTP 200. Preencha as variáveis do ambiente conforme docs/testes-api.md.",
+      "settingStoreCookies": false,
+      "settingSendCookies": false
+    },
+    {
+      "_id": "req_stetica_48",
+      "_type": "request",
+      "parentId": "fld_gestao",
+      "name": "Alterar situação: Em processamento",
+      "method": "PUT",
+      "url": "{{ _.base_url }}/api/pedidos/{{ _.pedido_id }}/status",
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        },
+        {
+          "name": "X-Admin-Key",
+          "value": "{{ _.admin_key }}"
+        }
+      ],
+      "parameters": [],
+      "authentication": {},
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"status\": \"Em processamento\"\n}"
+      },
+      "description": "Resultado esperado: HTTP 204 (409 se transição inválida). Preencha as variáveis do ambiente conforme docs/testes-api.md.",
+      "settingStoreCookies": false,
+      "settingSendCookies": false
+    },
+    {
+      "_id": "req_stetica_49",
+      "_type": "request",
+      "parentId": "fld_gestao",
+      "name": "Alterar situação: Concluído",
+      "method": "PUT",
+      "url": "{{ _.base_url }}/api/pedidos/{{ _.pedido_id }}/status",
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        },
+        {
+          "name": "X-Admin-Key",
+          "value": "{{ _.admin_key }}"
+        }
+      ],
+      "parameters": [],
+      "authentication": {},
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"status\": \"Concluído\"\n}"
+      },
+      "description": "Resultado esperado: HTTP 204 (409 se transição inválida). Preencha as variáveis do ambiente conforme docs/testes-api.md.",
+      "settingStoreCookies": false,
+      "settingSendCookies": false
+    },
+    {
+      "_id": "req_stetica_50",
+      "_type": "request",
+      "parentId": "fld_gestao",
+      "name": "Alterar situação: Cancelado",
+      "method": "PUT",
+      "url": "{{ _.base_url }}/api/pedidos/{{ _.pedido_id }}/status",
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        },
+        {
+          "name": "X-Admin-Key",
+          "value": "{{ _.admin_key }}"
+        }
+      ],
+      "parameters": [],
+      "authentication": {},
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"status\": \"Cancelado\"\n}"
+      },
+      "description": "Resultado esperado: HTTP 204 (409 se transição inválida). Preencha as variáveis do ambiente conforme docs/testes-api.md.",
+      "settingStoreCookies": false,
+      "settingSendCookies": false
+    }
+  ]
+}

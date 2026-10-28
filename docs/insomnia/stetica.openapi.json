@@ -1,0 +1,1792 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "Stetica API",
+    "description": "API acadêmica de produtos, serviços, clientes, estoque e pedidos. Autorização administrativa por X-Admin-Key e clientes por Bearer token.",
+    "version": "v1"
+  },
+  "paths": {
+    "/api/clientes": {
+      "post": {
+        "tags": [
+          "Cadastros"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CadastroInput"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CadastroInput"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/CadastroInput"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Registro criado. A resposta contém os dados/ID do registro."
+          },
+          "400": {
+            "description": "Dados inválidos ou regra de cadastro não atendida."
+          },
+          "409": {
+            "description": "Conflito de relacionamento, estoque ou situação do pedido."
+          },
+          "503": {
+            "description": "Banco de dados indisponível."
+          }
+        }
+      }
+    },
+    "/api/sessoes": {
+      "post": {
+        "tags": [
+          "Cadastros"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LoginInput"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LoginInput"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/LoginInput"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Dados inválidos ou regra de cadastro não atendida."
+          },
+          "409": {
+            "description": "Conflito de relacionamento, estoque ou situação do pedido."
+          },
+          "503": {
+            "description": "Banco de dados indisponível."
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Cadastros"
+        ],
+        "responses": {
+          "204": {
+            "description": "Operação concluída, sem corpo de resposta."
+          },
+          "409": {
+            "description": "Conflito de relacionamento, estoque ou situação do pedido."
+          },
+          "503": {
+            "description": "Banco de dados indisponível."
+          },
+          "401": {
+            "description": "Autenticação ausente ou inválida."
+          }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
+      }
+    },
+    "/api/pessoas": {
+      "get": {
+        "tags": [
+          "Cadastros"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "503": {
+            "description": "Banco de dados indisponível."
+          },
+          "401": {
+            "description": "Autenticação ausente ou inválida."
+          }
+        },
+        "security": [
+          {
+            "AdminKey": []
+          }
+        ]
+      }
+    },
+    "/api/pessoas/{id}": {
+      "get": {
+        "tags": [
+          "Cadastros"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Registro não encontrado ou inacessível ao cliente."
+          },
+          "503": {
+            "description": "Banco de dados indisponível."
+          },
+          "401": {
+            "description": "Autenticação ausente ou inválida."
+          }
+        },
+        "security": [
+          {
+            "AdminKey": []
+          }
+        ]
+      },
+      "put": {
+        "tags": [
+          "Cadastros"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PessoaInput"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PessoaInput"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/PessoaInput"
+              }
+            }
+          }
+        },
+        "responses": {
+          "204": {
+            "description": "Operação concluída, sem corpo de resposta."
+          },
+          "400": {
+            "description": "Dados inválidos ou regra de cadastro não atendida."
+          },
+          "404": {
+            "description": "Registro não encontrado ou inacessível ao cliente."
+          },
+          "409": {
+            "description": "Conflito de relacionamento, estoque ou situação do pedido."
+          },
+          "503": {
+            "description": "Banco de dados indisponível."
+          },
+          "401": {
+            "description": "Autenticação ausente ou inválida."
+          }
+        },
+        "security": [
+          {
+            "AdminKey": []
+          }
+        ]
+      },
+      "delete": {
+        "tags": [
+          "Cadastros"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Operação concluída, sem corpo de resposta."
+          },
+          "404": {
+            "description": "Registro não encontrado ou inacessível ao cliente."
+          },
+          "409": {
+            "description": "Conflito de relacionamento, estoque ou situação do pedido."
+          },
+          "503": {
+            "description": "Banco de dados indisponível."
+          },
+          "401": {
+            "description": "Autenticação ausente ou inválida."
+          }
+        },
+        "security": [
+          {
+            "AdminKey": []
+          }
+        ]
+      }
+    },
+    "/api/equipe": {
+      "get": {
+        "tags": [
+          "Cadastros"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "503": {
+            "description": "Banco de dados indisponível."
+          }
+        }
+      }
+    },
+    "/api/funcionarios": {
+      "get": {
+        "tags": [
+          "Cadastros"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "503": {
+            "description": "Banco de dados indisponível."
+          },
+          "401": {
+            "description": "Autenticação ausente ou inválida."
+          }
+        },
+        "security": [
+          {
+            "AdminKey": []
+          }
+        ]
+      },
+      "post": {
+        "tags": [
+          "Cadastros"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/FuncionarioInput"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/FuncionarioInput"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/FuncionarioInput"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Registro criado. A resposta contém os dados/ID do registro."
+          },
+          "400": {
+            "description": "Dados inválidos ou regra de cadastro não atendida."
+          },
+          "409": {
+            "description": "Conflito de relacionamento, estoque ou situação do pedido."
+          },
+          "503": {
+            "description": "Banco de dados indisponível."
+          },
+          "401": {
+            "description": "Autenticação ausente ou inválida."
+          }
+        },
+        "security": [
+          {
+            "AdminKey": []
+          }
+        ]
+      }
+    },
+    "/api/funcionarios/{id}": {
+      "get": {
+        "tags": [
+          "Cadastros"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Registro não encontrado ou inacessível ao cliente."
+          },
+          "503": {
+            "description": "Banco de dados indisponível."
+          },
+          "401": {
+            "description": "Autenticação ausente ou inválida."
+          }
+        },
+        "security": [
+          {
+            "AdminKey": []
+          }
+        ]
+      },
+      "put": {
+        "tags": [
+          "Cadastros"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/FuncionarioInput"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/FuncionarioInput"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/FuncionarioInput"
+              }
+            }
+          }
+        },
+        "responses": {
+          "204": {
+            "description": "Operação concluída, sem corpo de resposta."
+          },
+          "400": {
+            "description": "Dados inválidos ou regra de cadastro não atendida."
+          },
+          "404": {
+            "description": "Registro não encontrado ou inacessível ao cliente."
+          },
+          "409": {
+            "description": "Conflito de relacionamento, estoque ou situação do pedido."
+          },
+          "503": {
+            "description": "Banco de dados indisponível."
+          },
+          "401": {
+            "description": "Autenticação ausente ou inválida."
+          }
+        },
+        "security": [
+          {
+            "AdminKey": []
+          }
+        ]
+      },
+      "delete": {
+        "tags": [
+          "Cadastros"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Operação concluída, sem corpo de resposta."
+          },
+          "404": {
+            "description": "Registro não encontrado ou inacessível ao cliente."
+          },
+          "409": {
+            "description": "Conflito de relacionamento, estoque ou situação do pedido."
+          },
+          "503": {
+            "description": "Banco de dados indisponível."
+          },
+          "401": {
+            "description": "Autenticação ausente ou inválida."
+          }
+        },
+        "security": [
+          {
+            "AdminKey": []
+          }
+        ]
+      }
+    },
+    "/api/categorias": {
+      "get": {
+        "tags": [
+          "Catalogo"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "503": {
+            "description": "Banco de dados indisponível."
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Catalogo"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CategoriaInput"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CategoriaInput"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/CategoriaInput"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Registro criado. A resposta contém os dados/ID do registro."
+          },
+          "400": {
+            "description": "Dados inválidos ou regra de cadastro não atendida."
+          },
+          "409": {
+            "description": "Conflito de relacionamento, estoque ou situação do pedido."
+          },
+          "503": {
+            "description": "Banco de dados indisponível."
+          },
+          "401": {
+            "description": "Autenticação ausente ou inválida."
+          }
+        },
+        "security": [
+          {
+            "AdminKey": []
+          }
+        ]
+      }
+    },
+    "/api/categorias/{id}": {
+      "get": {
+        "tags": [
+          "Catalogo"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Registro não encontrado ou inacessível ao cliente."
+          },
+          "503": {
+            "description": "Banco de dados indisponível."
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Catalogo"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CategoriaInput"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CategoriaInput"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/CategoriaInput"
+              }
+            }
+          }
+        },
+        "responses": {
+          "204": {
+            "description": "Operação concluída, sem corpo de resposta."
+          },
+          "400": {
+            "description": "Dados inválidos ou regra de cadastro não atendida."
+          },
+          "404": {
+            "description": "Registro não encontrado ou inacessível ao cliente."
+          },
+          "409": {
+            "description": "Conflito de relacionamento, estoque ou situação do pedido."
+          },
+          "503": {
+            "description": "Banco de dados indisponível."
+          },
+          "401": {
+            "description": "Autenticação ausente ou inválida."
+          }
+        },
+        "security": [
+          {
+            "AdminKey": []
+          }
+        ]
+      },
+      "delete": {
+        "tags": [
+          "Catalogo"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Operação concluída, sem corpo de resposta."
+          },
+          "404": {
+            "description": "Registro não encontrado ou inacessível ao cliente."
+          },
+          "409": {
+            "description": "Conflito de relacionamento, estoque ou situação do pedido."
+          },
+          "503": {
+            "description": "Banco de dados indisponível."
+          },
+          "401": {
+            "description": "Autenticação ausente ou inválida."
+          }
+        },
+        "security": [
+          {
+            "AdminKey": []
+          }
+        ]
+      }
+    },
+    "/api/itens": {
+      "get": {
+        "tags": [
+          "Catalogo"
+        ],
+        "parameters": [
+          {
+            "name": "busca",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "categoriaId",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "tipo",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "503": {
+            "description": "Banco de dados indisponível."
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Catalogo"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ItemInput"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ItemInput"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ItemInput"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Registro criado. A resposta contém os dados/ID do registro."
+          },
+          "400": {
+            "description": "Dados inválidos ou regra de cadastro não atendida."
+          },
+          "409": {
+            "description": "Conflito de relacionamento, estoque ou situação do pedido."
+          },
+          "503": {
+            "description": "Banco de dados indisponível."
+          },
+          "401": {
+            "description": "Autenticação ausente ou inválida."
+          }
+        },
+        "security": [
+          {
+            "AdminKey": []
+          }
+        ]
+      }
+    },
+    "/api/itens/{id}": {
+      "get": {
+        "tags": [
+          "Catalogo"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Registro não encontrado ou inacessível ao cliente."
+          },
+          "503": {
+            "description": "Banco de dados indisponível."
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Catalogo"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ItemInput"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ItemInput"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ItemInput"
+              }
+            }
+          }
+        },
+        "responses": {
+          "204": {
+            "description": "Operação concluída, sem corpo de resposta."
+          },
+          "400": {
+            "description": "Dados inválidos ou regra de cadastro não atendida."
+          },
+          "404": {
+            "description": "Registro não encontrado ou inacessível ao cliente."
+          },
+          "409": {
+            "description": "Conflito de relacionamento, estoque ou situação do pedido."
+          },
+          "503": {
+            "description": "Banco de dados indisponível."
+          },
+          "401": {
+            "description": "Autenticação ausente ou inválida."
+          }
+        },
+        "security": [
+          {
+            "AdminKey": []
+          }
+        ]
+      },
+      "delete": {
+        "tags": [
+          "Catalogo"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Operação concluída, sem corpo de resposta."
+          },
+          "404": {
+            "description": "Registro não encontrado ou inacessível ao cliente."
+          },
+          "409": {
+            "description": "Conflito de relacionamento, estoque ou situação do pedido."
+          },
+          "503": {
+            "description": "Banco de dados indisponível."
+          },
+          "401": {
+            "description": "Autenticação ausente ou inválida."
+          }
+        },
+        "security": [
+          {
+            "AdminKey": []
+          }
+        ]
+      }
+    },
+    "/api/admin/itens": {
+      "get": {
+        "tags": [
+          "Catalogo"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "503": {
+            "description": "Banco de dados indisponível."
+          },
+          "401": {
+            "description": "Autenticação ausente ou inválida."
+          }
+        },
+        "security": [
+          {
+            "AdminKey": []
+          }
+        ]
+      }
+    },
+    "/api/estoque": {
+      "get": {
+        "tags": [
+          "Catalogo"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "503": {
+            "description": "Banco de dados indisponível."
+          },
+          "401": {
+            "description": "Autenticação ausente ou inválida."
+          }
+        },
+        "security": [
+          {
+            "AdminKey": []
+          }
+        ]
+      }
+    },
+    "/api/estoque/{id}": {
+      "get": {
+        "tags": [
+          "Catalogo"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Registro não encontrado ou inacessível ao cliente."
+          },
+          "503": {
+            "description": "Banco de dados indisponível."
+          },
+          "401": {
+            "description": "Autenticação ausente ou inválida."
+          }
+        },
+        "security": [
+          {
+            "AdminKey": []
+          }
+        ]
+      }
+    },
+    "/api/entradaprodutos": {
+      "get": {
+        "tags": [
+          "Catalogo"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "503": {
+            "description": "Banco de dados indisponível."
+          },
+          "401": {
+            "description": "Autenticação ausente ou inválida."
+          }
+        },
+        "security": [
+          {
+            "AdminKey": []
+          }
+        ]
+      },
+      "post": {
+        "tags": [
+          "Catalogo"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EntradaInput"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EntradaInput"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/EntradaInput"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Registro criado. A resposta contém os dados/ID do registro."
+          },
+          "400": {
+            "description": "Dados inválidos ou regra de cadastro não atendida."
+          },
+          "409": {
+            "description": "Conflito de relacionamento, estoque ou situação do pedido."
+          },
+          "503": {
+            "description": "Banco de dados indisponível."
+          },
+          "401": {
+            "description": "Autenticação ausente ou inválida."
+          }
+        },
+        "security": [
+          {
+            "AdminKey": []
+          }
+        ]
+      }
+    },
+    "/api/entradaprodutos/{id}": {
+      "get": {
+        "tags": [
+          "Catalogo"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Registro não encontrado ou inacessível ao cliente."
+          },
+          "503": {
+            "description": "Banco de dados indisponível."
+          },
+          "401": {
+            "description": "Autenticação ausente ou inválida."
+          }
+        },
+        "security": [
+          {
+            "AdminKey": []
+          }
+        ]
+      }
+    },
+    "/api/resumo": {
+      "get": {
+        "tags": [
+          "Catalogo"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "503": {
+            "description": "Banco de dados indisponível."
+          },
+          "401": {
+            "description": "Autenticação ausente ou inválida."
+          }
+        },
+        "security": [
+          {
+            "AdminKey": []
+          }
+        ]
+      }
+    },
+    "/api/pedidos": {
+      "post": {
+        "tags": [
+          "Pedidos"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PedidoInput"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PedidoInput"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/PedidoInput"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Registro criado. A resposta contém os dados/ID do registro."
+          },
+          "400": {
+            "description": "Dados inválidos ou regra de cadastro não atendida."
+          },
+          "409": {
+            "description": "Conflito de relacionamento, estoque ou situação do pedido."
+          },
+          "503": {
+            "description": "Banco de dados indisponível."
+          },
+          "401": {
+            "description": "Autenticação ausente ou inválida."
+          }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
+      },
+      "get": {
+        "tags": [
+          "Pedidos"
+        ],
+        "parameters": [
+          {
+            "name": "status",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "503": {
+            "description": "Banco de dados indisponível."
+          },
+          "401": {
+            "description": "Autenticação ausente ou inválida."
+          }
+        },
+        "security": [
+          {
+            "AdminKey": []
+          }
+        ]
+      }
+    },
+    "/api/meus-pedidos": {
+      "get": {
+        "tags": [
+          "Pedidos"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "503": {
+            "description": "Banco de dados indisponível."
+          },
+          "401": {
+            "description": "Autenticação ausente ou inválida."
+          }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
+      }
+    },
+    "/api/meus-pedidos/{id}": {
+      "get": {
+        "tags": [
+          "Pedidos"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Registro não encontrado ou inacessível ao cliente."
+          },
+          "503": {
+            "description": "Banco de dados indisponível."
+          },
+          "401": {
+            "description": "Autenticação ausente ou inválida."
+          }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
+      }
+    },
+    "/api/pessoas/{id}/pedidos": {
+      "get": {
+        "tags": [
+          "Pedidos"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Registro não encontrado ou inacessível ao cliente."
+          },
+          "503": {
+            "description": "Banco de dados indisponível."
+          },
+          "401": {
+            "description": "Autenticação ausente ou inválida."
+          }
+        },
+        "security": [
+          {
+            "AdminKey": []
+          }
+        ]
+      }
+    },
+    "/api/pedidos/{id}": {
+      "get": {
+        "tags": [
+          "Pedidos"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Registro não encontrado ou inacessível ao cliente."
+          },
+          "503": {
+            "description": "Banco de dados indisponível."
+          },
+          "401": {
+            "description": "Autenticação ausente ou inválida."
+          }
+        },
+        "security": [
+          {
+            "AdminKey": []
+          }
+        ]
+      }
+    },
+    "/api/pedidos/{id}/status": {
+      "put": {
+        "tags": [
+          "Pedidos"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/StatusInput"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/StatusInput"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/StatusInput"
+              }
+            }
+          }
+        },
+        "responses": {
+          "204": {
+            "description": "Operação concluída, sem corpo de resposta."
+          },
+          "400": {
+            "description": "Dados inválidos ou regra de cadastro não atendida."
+          },
+          "404": {
+            "description": "Registro não encontrado ou inacessível ao cliente."
+          },
+          "409": {
+            "description": "Conflito de relacionamento, estoque ou situação do pedido."
+          },
+          "503": {
+            "description": "Banco de dados indisponível."
+          },
+          "401": {
+            "description": "Autenticação ausente ou inválida."
+          }
+        },
+        "security": [
+          {
+            "AdminKey": []
+          }
+        ]
+      }
+    },
+    "/api/saude": {
+      "get": {
+        "tags": [
+          "Saude"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "503": {
+            "description": "Banco de dados indisponível."
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "CadastroInput": {
+        "required": [
+          "cpf",
+          "email",
+          "endereco",
+          "nome",
+          "senha",
+          "sexo",
+          "telefone"
+        ],
+        "type": "object",
+        "properties": {
+          "nome": {
+            "maxLength": 100,
+            "minLength": 2,
+            "type": "string"
+          },
+          "cpf": {
+            "minLength": 1,
+            "pattern": "\\d{11}",
+            "type": "string"
+          },
+          "dataNascimento": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "sexo": {
+            "minLength": 1,
+            "pattern": "[MFO]",
+            "type": "string"
+          },
+          "email": {
+            "maxLength": 100,
+            "minLength": 0,
+            "type": "string",
+            "format": "email"
+          },
+          "telefone": {
+            "minLength": 1,
+            "pattern": "\\d{10,11}",
+            "type": "string"
+          },
+          "endereco": {
+            "$ref": "#/components/schemas/EnderecoInput"
+          },
+          "senha": {
+            "maxLength": 128,
+            "minLength": 8,
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "CategoriaInput": {
+        "required": [
+          "nome"
+        ],
+        "type": "object",
+        "properties": {
+          "nome": {
+            "maxLength": 35,
+            "minLength": 2,
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "EnderecoInput": {
+        "required": [
+          "bairro",
+          "cep",
+          "cidade",
+          "logradouro",
+          "numero",
+          "uf"
+        ],
+        "type": "object",
+        "properties": {
+          "cep": {
+            "minLength": 1,
+            "pattern": "\\d{8}",
+            "type": "string"
+          },
+          "logradouro": {
+            "maxLength": 150,
+            "minLength": 0,
+            "type": "string"
+          },
+          "bairro": {
+            "maxLength": 100,
+            "minLength": 0,
+            "type": "string"
+          },
+          "cidade": {
+            "maxLength": 100,
+            "minLength": 0,
+            "type": "string"
+          },
+          "uf": {
+            "minLength": 1,
+            "pattern": "[A-Z]{2}",
+            "type": "string"
+          },
+          "numero": {
+            "maxLength": 10,
+            "minLength": 0,
+            "type": "string"
+          },
+          "complemento": {
+            "maxLength": 150,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "EntradaInput": {
+        "type": "object",
+        "properties": {
+          "produtoId": {
+            "maximum": 2147483647,
+            "minimum": 1,
+            "type": "integer",
+            "format": "int32"
+          },
+          "quantidade": {
+            "maximum": 1000000,
+            "minimum": 1,
+            "type": "integer",
+            "format": "int32"
+          },
+          "valorUnitario": {
+            "maximum": 99999999.99,
+            "minimum": 0.01,
+            "type": "number",
+            "format": "double"
+          },
+          "data": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "additionalProperties": false
+      },
+      "FuncionarioInput": {
+        "required": [
+          "cargo",
+          "cpf",
+          "email",
+          "endereco",
+          "nome",
+          "sexo",
+          "telefone"
+        ],
+        "type": "object",
+        "properties": {
+          "nome": {
+            "maxLength": 100,
+            "minLength": 2,
+            "type": "string"
+          },
+          "cpf": {
+            "minLength": 1,
+            "pattern": "\\d{11}",
+            "type": "string"
+          },
+          "dataNascimento": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "sexo": {
+            "minLength": 1,
+            "pattern": "[MFO]",
+            "type": "string"
+          },
+          "email": {
+            "maxLength": 100,
+            "minLength": 0,
+            "type": "string",
+            "format": "email"
+          },
+          "telefone": {
+            "minLength": 1,
+            "pattern": "\\d{10,11}",
+            "type": "string"
+          },
+          "endereco": {
+            "$ref": "#/components/schemas/EnderecoInput"
+          },
+          "cargo": {
+            "maxLength": 50,
+            "minLength": 0,
+            "type": "string"
+          },
+          "dataAdmissao": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ItemInput": {
+        "required": [
+          "descricao",
+          "nome",
+          "tipo",
+          "unidade"
+        ],
+        "type": "object",
+        "properties": {
+          "nome": {
+            "maxLength": 40,
+            "minLength": 2,
+            "type": "string"
+          },
+          "descricao": {
+            "maxLength": 200,
+            "minLength": 0,
+            "type": "string"
+          },
+          "categoriaId": {
+            "maximum": 2147483647,
+            "minimum": 1,
+            "type": "integer",
+            "format": "int32"
+          },
+          "tipo": {
+            "minLength": 1,
+            "pattern": "[PS]",
+            "type": "string"
+          },
+          "preco": {
+            "maximum": 99999999.99,
+            "minimum": 0.01,
+            "type": "number",
+            "format": "double"
+          },
+          "ativo": {
+            "type": "boolean"
+          },
+          "codigoPreco": {
+            "maximum": 3,
+            "minimum": 1,
+            "type": "integer",
+            "format": "int32"
+          },
+          "unidade": {
+            "maxLength": 10,
+            "minLength": 0,
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "LoginInput": {
+        "required": [
+          "email",
+          "senha"
+        ],
+        "type": "object",
+        "properties": {
+          "email": {
+            "minLength": 1,
+            "type": "string",
+            "format": "email"
+          },
+          "senha": {
+            "maxLength": 128,
+            "minLength": 0,
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "PedidoInput": {
+        "required": [
+          "itens"
+        ],
+        "type": "object",
+        "properties": {
+          "itens": {
+            "maxItems": 100,
+            "minItems": 1,
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PedidoLinhaInput"
+            }
+          }
+        },
+        "additionalProperties": false
+      },
+      "PedidoLinhaInput": {
+        "type": "object",
+        "properties": {
+          "itemId": {
+            "maximum": 2147483647,
+            "minimum": 1,
+            "type": "integer",
+            "format": "int32"
+          },
+          "quantidade": {
+            "maximum": 10000,
+            "minimum": 1,
+            "type": "integer",
+            "format": "int32"
+          },
+          "funcionarioId": {
+            "maximum": 2147483647,
+            "minimum": 1,
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false
+      },
+      "PessoaInput": {
+        "required": [
+          "cpf",
+          "email",
+          "endereco",
+          "nome",
+          "sexo",
+          "telefone"
+        ],
+        "type": "object",
+        "properties": {
+          "nome": {
+            "maxLength": 100,
+            "minLength": 2,
+            "type": "string"
+          },
+          "cpf": {
+            "minLength": 1,
+            "pattern": "\\d{11}",
+            "type": "string"
+          },
+          "dataNascimento": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "sexo": {
+            "minLength": 1,
+            "pattern": "[MFO]",
+            "type": "string"
+          },
+          "email": {
+            "maxLength": 100,
+            "minLength": 0,
+            "type": "string",
+            "format": "email"
+          },
+          "telefone": {
+            "minLength": 1,
+            "pattern": "\\d{10,11}",
+            "type": "string"
+          },
+          "endereco": {
+            "$ref": "#/components/schemas/EnderecoInput"
+          }
+        },
+        "additionalProperties": false
+      },
+      "StatusInput": {
+        "required": [
+          "status"
+        ],
+        "type": "object",
+        "properties": {
+          "status": {
+            "minLength": 1,
+            "pattern": "^(Em processamento|Concluído|Cancelado)$",
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "securitySchemes": {
+      "AdminKey": {
+        "type": "apiKey",
+        "description": "Use a chave configurada em Admin:Key na sua API.",
+        "name": "X-Admin-Key",
+        "in": "header"
+      },
+      "Bearer": {
+        "type": "http",
+        "description": "Cadastre ou autentique um cliente e cole apenas o token retornado, sem o prefixo Bearer.",
+        "scheme": "bearer"
+      }
+    }
+  },
+  "servers": [
+    {
+      "url": "http://localhost:5080",
+      "description": "API local (ajuste se usar outra porta)"
+    }
+  ]
+}
