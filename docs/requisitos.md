@@ -44,7 +44,7 @@ Todos os caminhos abaixo têm prefixo `/api`.
 
 Clientes usam `Authorization: Bearer <token>`; painel usa `X-Admin-Key`. Dados de autenticação nunca fazem parte do código-fonte. O formulário permite escolher um funcionário responsável por item, inclusive para produtos, conforme a relação obrigatória do modelo da atividade.
 
-O carrinho é temporário na memória do componente de apresentação e se perde ao recarregar a página; somente pedidos confirmados são persistidos. Sessão de cliente e chave administrativa ficam no `sessionStorage` da aba. Pagamentos, recuperação de senha e perfis individuais administrativos não fazem parte desta entrega.
+O carrinho é temporário na memória do domínio/aplicação e se perde ao recarregar a página; somente pedidos confirmados são persistidos. Sessão de cliente e chave administrativa ficam no `sessionStorage` da aba. Pagamentos, recuperação de senha e perfis individuais administrativos não fazem parte desta entrega.
 
 ## Documentação interativa e roteiro de testes
 

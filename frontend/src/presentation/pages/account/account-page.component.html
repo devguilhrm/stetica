@@ -1,0 +1,104 @@
+<section class="page">
+  <span class="eyebrow">BEM-VINDO À STETICA</span>
+  <h1>Um espaço para você</h1>
+  @if (customer) {
+    <div class="panel">
+      <h2>Olá, {{ customer.nome }}</h2>
+      <p>{{ customer.email }}</p>
+      <button class="button primary" (click)="go('pedidos')">
+        Ver meus pedidos
+      </button>
+      <button class="button outline" (click)="logout()">Sair da conta</button>
+    </div>
+  } @else {
+    <div class="account-layout">
+      <form
+        class="panel login-form"
+        #loginForm="ngForm"
+        (ngSubmit)="signIn(loginForm)"
+      >
+        <h2>Já sou cliente</h2>
+        <p>Acesse seus pedidos com seu e-mail e senha.</p>
+        <label
+          >E-mail<input
+            name="email"
+            type="email"
+            required
+            email
+            [(ngModel)]="login.email" /></label
+        ><label
+          >Senha<input
+            name="senha"
+            type="password"
+            required
+            maxlength="128"
+            [(ngModel)]="login.senha" /></label
+        ><button class="button primary" [disabled]="busy || loginForm.invalid">
+          Entrar
+        </button>
+      </form>
+      <form
+        class="panel"
+        #signupForm="ngForm"
+        (ngSubmit)="register(signupForm)"
+      >
+        <h2>Meu primeiro cuidado</h2>
+        <p>Crie sua conta para registrar e acompanhar pedidos.</p>
+        <div class="form-grid">
+          @for (f of personFields; track f.key) {
+            <label
+              >{{ f.label }}
+              @if (f.options) {
+                <select
+                  [name]="f.key"
+                  [(ngModel)]="signup[f.key]"
+                  [required]="!!f.required"
+                >
+                  <option [ngValue]="undefined">Selecione</option>
+                  @for (o of f.options; track o.value) {
+                    <option [ngValue]="o.value">{{ o.label }}</option>
+                  }
+                </select>
+              } @else {
+                <input
+                  [name]="f.key"
+                  [type]="f.type || 'text'"
+                  [(ngModel)]="signup[f.key]"
+                  [required]="!!f.required"
+                  [pattern]="f.pattern || ''"
+                  [attr.maxlength]="f.type === 'date' ? null : f.max"
+                  #input="ngModel"
+                />
+                @if (input.invalid && (input.touched || signupForm.submitted)) {
+                  <small class="invalid">Confira este campo.</small>
+                }
+              }
+            </label>
+          }
+          <label
+            >Senha (mínimo de 8 caracteres)<input
+              name="senhaCadastro"
+              type="password"
+              required
+              minlength="8"
+              maxlength="128"
+              [(ngModel)]="signup.senha"
+          /></label>
+        </div>
+        <div class="actions">
+          <button class="button primary" [disabled]="busy">
+            Criar minha conta</button
+          ><button
+            class="button outline"
+            type="button"
+            (click)="signupForm.resetForm()"
+          >
+            Limpar</button
+          ><button class="text-button" type="button" (click)="go('catalogo')">
+            Voltar ao catálogo
+          </button>
+        </div>
+      </form>
+    </div>
+  }
+</section>

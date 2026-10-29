@@ -1,0 +1,80 @@
+<section class="page">
+  <span class="eyebrow">SEU MOMENTO DE CUIDADO</span>
+  <h1>Sua sacola</h1>
+  <div class="cart-layout">
+    <div>
+      @for (l of cart; track l.id) {
+        <article class="cart-line">
+          <div class="mini-art">{{ l.tipo === "S" ? "✧" : "s." }}</div>
+          <div class="cart-name">
+            <h3>{{ l.nome }}</h3>
+            <p>
+              {{ l.preco | currency: "BRL" : "symbol" : "1.2-2" : "pt-BR" }} ·
+              {{ l.tipo === "P" ? "Produto" : "Serviço" }}
+            </p>
+            <label
+              >Profissional<select
+                [disabled]="busy"
+                [ngModel]="l.funcionarioId"
+                (ngModelChange)="assignEmployee(l.id, $event)"
+                [attr.aria-label]="'Profissional de ' + l.nome"
+              >
+                <option [ngValue]="null">Selecione</option>
+                @for (f of equipe; track f.id) {
+                  <option [ngValue]="f.id">{{ f.nome }} · {{ f.cargo }}</option>
+                }
+              </select></label
+            >
+          </div>
+          <label class="quantity"
+            >Qtd.<input
+              type="number"
+              min="1"
+              [max]="l.tipo === 'S' ? 1 : l.estoque"
+              [disabled]="busy || l.tipo === 'S'"
+              [ngModel]="l.quantidade"
+              (ngModelChange)="quantity(l.id, $event)" /></label
+          ><button class="text-button" [disabled]="busy" (click)="remove(l.id)">
+            Remover
+          </button>
+        </article>
+      } @empty {
+        <div class="empty">
+          <h3>Sua sacola está esperando por você</h3>
+          <p>Explore o catálogo e escolha seus cuidados.</p>
+          <button class="button primary" (click)="go('catalogo')">
+            Explorar catálogo
+          </button>
+        </div>
+      }
+    </div>
+    <aside class="panel cart-summary">
+      <h2>Resumo do pedido</h2>
+      <p>{{ cartCount }} itens selecionados</p>
+      <div class="total">
+        <span>Total</span
+        ><strong>{{
+          total | currency: "BRL" : "symbol" : "1.2-2" : "pt-BR"
+        }}</strong>
+      </div>
+      <p class="muted">
+        O pedido será registrado em aberto. Pagamento não incluído nesta versão.
+      </p>
+      <button
+        class="button primary full"
+        [disabled]="busy || !cart.length"
+        (click)="checkout()"
+      >
+        {{
+          busy
+            ? "Registrando…"
+            : customer
+              ? "Confirmar pedido"
+              : "Entrar para continuar"
+        }}</button
+      ><button class="text-button" (click)="go('catalogo')">
+        Continuar escolhendo
+      </button>
+    </aside>
+  </div>
+</section>

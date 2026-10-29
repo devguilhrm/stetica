@@ -45,3 +45,14 @@ Os testes criam registros fictícios marcados por execução. Os dados são mant
 Não foram testadas versões históricas do MySQL, MariaDB, publicação em servidor público, gateway de pagamentos, recuperação de senha nem um arquivo Figma editável. O SQL foi preparado para MySQL 8.0/8.4. O projeto é uma aplicação acadêmica executada localmente, com chave administrativa compartilhada e sessões de clientes.
 
 O ambiente de nuvem teve `install_script` e `start_skill` salvos como rascunho. Salvar essas instruções não publica o ambiente. Para reutilizar o snapshot pela plataforma, revise e salve a configuração nas configurações do ambiente e publique-o.
+
+## Refatoração do frontend em Clean Architecture
+
+Validada em Node 20, mantendo Angular 17 e o backend existente:
+
+- Build Angular de produção com páginas carregadas sob demanda: passou.
+- 24 testes de domínio, aplicação, armazenamento de sessão e dependências entre camadas: passaram.
+- Três fluxos Playwright com API/MySQL reais: passaram. Incluem catálogo/detalhes, alteração de quantidade, cadastro durante a compra, pedido, cancelamento com devolução de estoque, autenticação inválida, CRUD/consulta por ID de categoria e navegação móvel com recarga/voltar.
+- O código e os contratos do backend não foram alterados para a refatoração. A validação anterior do backend é registrada acima.
+
+Consulte [arquitetura-frontend.md](arquitetura-frontend.md) para a organização e reprodução dos testes. Os testes e o build foram executados em Linux; o computador de destino ainda precisa seguir o procedimento do README.

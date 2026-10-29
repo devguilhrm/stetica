@@ -1,0 +1,85 @@
+@if (detail) {
+  <section class="panel detail" aria-label="Detalhes do registro">
+    <button class="close" (click)="closed.emit()" aria-label="Fechar detalhes">
+      ×</button
+    ><span class="eyebrow">CONSULTA</span>
+    <h2>Registro #{{ detail.id || detail.pessoa?.id }}</h2>
+    @if (detail.itens) {
+      <p>
+        {{ detail.cliente }} · {{ detail.data | date: "dd/MM/yyyy" }} ·
+        <span class="badge">{{ detail.status }}</span>
+      </p>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Item</th>
+              <th>Quantidade</th>
+              <th>Preço unitário</th>
+              <th>Profissional</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (l of detail.itens; track l.itemId) {
+              <tr>
+                <td>{{ l.nome }}</td>
+                <td>{{ l.quantidade }}</td>
+                <td>
+                  {{
+                    l.valorUnitario
+                      | currency: "BRL" : "symbol" : "1.2-2" : "pt-BR"
+                  }}
+                </td>
+                <td>{{ l.funcionario }} · {{ l.cargo }}</td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+      <h3>
+        Total:
+        {{ detail.total | currency: "BRL" : "symbol" : "1.2-2" : "pt-BR" }}
+      </h3>
+      @if (admin) {
+        <div class="actions">
+          @if (detail.status === "Aberto") {
+            <button
+              class="button primary"
+              [disabled]="busy"
+              (click)="statusChange.emit('Em processamento')"
+            >
+              Iniciar processamento
+            </button>
+          }
+          @if (detail.status === "Em processamento") {
+            <button
+              class="button primary"
+              [disabled]="busy"
+              (click)="statusChange.emit('Concluído')"
+            >
+              Concluir pedido
+            </button>
+          }
+          @if (
+            detail.status === "Aberto" || detail.status === "Em processamento"
+          ) {
+            <button
+              class="button outline"
+              [disabled]="busy"
+              (click)="statusChange.emit('Cancelado')"
+            >
+              Cancelar pedido
+            </button>
+          }
+        </div>
+      }
+    } @else {
+      <dl class="record-details">
+        @for (entry of detailFields; track entry.label) {
+          <dt>{{ entry.label }}</dt>
+          <dd>{{ entry.value }}</dd>
+        }
+      </dl>
+    }
+  </section>
+}

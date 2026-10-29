@@ -1,0 +1,122 @@
+<section class="hero">
+  <div class="hero-copy">
+    <span class="eyebrow">ESTÉTICA & BEM-ESTAR</span>
+    <h1>Seu tempo.<br />Seu cuidado.<br /><em>Sua essência.</em></h1>
+    <p>
+      Produtos selecionados e experiências de cuidado para você se sentir bem,
+      todos os dias.
+    </p>
+    <a class="button primary" href="#catalogo"
+      >Explore nossos cuidados <span>↗</span></a
+    >
+    <div class="hero-note">
+      <span>✧</span> Um momento para se reconectar com você.
+    </div>
+  </div>
+  <div class="hero-art" aria-hidden="true">
+    <div class="art-circle"></div>
+    <div class="bottle bottle-one">
+      <div class="cap"></div>
+      <span>stetica</span><small>ESSENTIAL CARE<br />BODY & SOUL</small
+      ><b>200 ml</b>
+    </div>
+    <div class="bottle bottle-two">
+      <div class="cap"></div>
+      <span>stetica</span><small>DAILY GLOW<br />SELF CARE</small><b>50 ml</b>
+    </div>
+    <div class="art-caption">A beleza começa<br />no cuidado.</div>
+    <span class="art-star">✳</span>
+  </div>
+</section>
+<section class="catalog" id="catalogo">
+  <div class="section-heading">
+    <div>
+      <span class="eyebrow">ESCOLHIDOS PARA VOCÊ</span>
+      <h2>Encontre seu próximo cuidado</h2>
+    </div>
+    <span class="muted">{{ itens.length }} opções para o seu bem-estar</span>
+  </div>
+  <form class="filters" (ngSubmit)="loadCatalog()">
+    <label class="search"
+      ><span>⌕</span
+      ><input
+        name="busca"
+        [(ngModel)]="busca"
+        placeholder="O que você procura?"
+        aria-label="Pesquisar por nome" /></label
+    ><select name="categoria" [(ngModel)]="categoria" aria-label="Categoria">
+      <option value="">Todas as categorias</option>
+      @for (c of categorias; track c.id) {
+        <option [value]="c.id">{{ c.nome }}</option>
+      }</select
+    ><select name="tipo" [(ngModel)]="tipo" aria-label="Tipo de cuidado">
+      <option value="">Produtos e serviços</option>
+      <option value="P">Produtos</option>
+      <option value="S">Serviços</option></select
+    ><button class="button dark" type="submit">Filtrar</button>
+  </form>
+  @if (loading) {
+    <p role="status">Carregando cuidados…</p>
+  } @else {
+    <div class="product-grid">
+      @for (i of itens; track i.id) {
+        <app-product-card
+          [i]="i"
+          (addProduct)="add($event)"
+          (showDetail)="itemDetail($event)"
+        />
+      } @empty {
+        <div class="empty">
+          <h3>Nenhum cuidado encontrado</h3>
+          <p>
+            Altere os filtros. Se este é o primeiro acesso, cadastre categorias,
+            itens e entradas no administrativo.
+          </p>
+        </div>
+      }
+    </div>
+  }
+</section>
+<section class="values">
+  <div>
+    <span>01</span>
+    <h3>Cuidado com propósito</h3>
+    <p>Produtos e serviços em um só lugar.</p>
+  </div>
+  <div>
+    <span>02</span>
+    <h3>Seu bem-estar em primeiro lugar</h3>
+    <p>Escolha o cuidado e o profissional.</p>
+  </div>
+  <div>
+    <span>03</span>
+    <h3>Simples, do início ao fim</h3>
+    <p>Monte sua sacola e acompanhe o pedido.</p>
+  </div>
+</section>
+@if (selectedItem) {
+  <section class="detail panel" aria-label="Detalhes do item">
+    <button
+      class="close"
+      (click)="selectedItem = null"
+      aria-label="Fechar detalhes"
+    >
+      ×</button
+    ><span class="eyebrow">{{ selectedItem.categoria }}</span>
+    <h2>{{ selectedItem.nome }}</h2>
+    <p>{{ selectedItem.descricao }}</p>
+    <p>
+      {{ selectedItem.preco | currency: "BRL" : "symbol" : "1.2-2" : "pt-BR" }}
+    </p>
+    <p>
+      {{
+        selectedItem.tipo === "P"
+          ? "Estoque: " + selectedItem.estoque + " " + selectedItem.unidade
+          : "Serviço · quantidade única por pedido"
+      }}
+    </p>
+    <button class="button primary" (click)="add(selectedItem)">
+      Adicionar à sacola
+    </button>
+  </section>
+}

@@ -4,7 +4,7 @@ Aplicação acadêmica de Engenharia de Software para uma empresa de estética e
 
 ## Tecnologias e padronizações
 
-- **Angular 17.3**, TypeScript, componentes standalone, `@if`/`@for`, formulários com validações e `HttpClient` separado em serviço.
+- **Angular 17.3**, TypeScript, componentes standalone, rotas com carregamento sob demanda e Clean Architecture: domínio, aplicação, infraestrutura e apresentação.
 - **ASP.NET Core / .NET 8**, Entity Framework Core 8 e provider Pomelo para MySQL.
 - **Linguagem C# 8.0**, forçada por `<LangVersion>8.0</LangVersion>`. A versão da linguagem é diferente da versão do .NET. Não usa top-level statements, records ou namespaces de arquivo.
 - Banco: **`bd_stetica`**, InnoDB, UTF-8 (`utf8mb4`).
@@ -160,17 +160,25 @@ STETICA_TEST_ADMIN_KEY='A_MESMA_CHAVE_CONFIGURADA_NA_API' python3 tests/smoke.py
 
 O teste cria dados fictícios identificados por execução e **não os apaga**; execute somente em banco de desenvolvimento. Verifica validações, permissões, cadastro/login, consultas por ID, estoque, pedidos, concorrência de compras, cancelamento e preservação do preço no histórico.
 
+### Testes do frontend
+
+Na pasta `frontend`, execute `npm test` para testar regras e limites entre camadas sem banco ou navegador. `npm run typecheck` verifica TypeScript e os templates Angular.
+
+Há também `npm run test:e2e`, com três fluxos reais no navegador: compra/cancelamento, CRUD administrativo e navegação em celular. Esses testes precisam de MySQL, API e Angular iniciados, navegador instalado e `STETICA_TEST_ADMIN_KEY` configurada. Consulte [a arquitetura e as instruções de teste do frontend](docs/arquitetura-frontend.md#testes).
+
 ## Estrutura
 
 ```text
 backend/Stetica.Api/     API, contratos, modelos EF e regras de negócio
 database/               Criação do banco/rotinas e dados opcionais
-frontend/src/           Aplicação Angular, componente de catálogo e serviço HTTP
+frontend/src/           Domínio, casos de uso, adapters e páginas Angular
+frontend/tests/         Testes de regras e dependências entre camadas
+frontend/e2e/           Fluxos de navegador com Playwright
 docs/                   Modelo relacional, requisitos e imagens das telas
 tests/smoke.py          Teste de integração real pela API
 ```
 
-Consulte [o modelo e as decisões de banco](docs/modelo-relacional.md), [o escopo da atividade](docs/requisitos.md) e [os resultados de validação](docs/validacao.md).
+Consulte [a arquitetura do frontend](docs/arquitetura-frontend.md), [o modelo e as decisões de banco](docs/modelo-relacional.md), [o escopo da atividade](docs/requisitos.md) e [os resultados de validação](docs/validacao.md).
 
 ![Catálogo Stetica](docs/catalogo-desktop.png)
 

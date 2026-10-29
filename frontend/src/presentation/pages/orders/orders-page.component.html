@@ -1,0 +1,29 @@
+<section class="page">
+  <span class="eyebrow">SEU HISTÓRICO</span>
+  <h1>Meus pedidos</h1>
+  @if (!customer) {
+    <div class="empty">
+      <h3>Entre para acompanhar seus cuidados</h3>
+      <button class="button primary" (click)="go('conta')">
+        Acessar minha conta
+      </button>
+    </div>
+  } @else {
+    <div class="order-grid">
+      @for (p of rows; track p.id) {
+        <button class="panel order-card" (click)="orderDetail(p.id)">
+          <span class="eyebrow">PEDIDO #{{ p.id }}</span
+          ><span class="badge">{{ p.status }}</span>
+          <h3>
+            {{ p.total | currency: "BRL" : "symbol" : "1.2-2" : "pt-BR" }}
+          </h3>
+          <p>{{ p.data | date: "dd/MM/yyyy" }}</p>
+          <span class="text-button">Ver detalhes ↗</span>
+        </button>
+      } @empty {
+        <p>Nenhum pedido registrado.</p>
+      }
+    </div>
+  }
+</section>
+<app-record-detail [detail]="detail" (closed)="detail = null" />

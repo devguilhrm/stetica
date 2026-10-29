@@ -9,3 +9,6 @@
 *.user
 backend/**/appsettings.Local.json
 *.log
+**/.test-dist/
+**/test-results/
+**/playwright-report/

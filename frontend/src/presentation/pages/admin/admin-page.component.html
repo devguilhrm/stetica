@@ -1,0 +1,210 @@
+@if (!admin) {
+  <section class="page narrow">
+    <span class="eyebrow">ÁREA ADMINISTRATIVA</span>
+    <h1>Gestão com cuidado</h1>
+    <form class="panel" (ngSubmit)="enterAdmin()">
+      <p>Informe a chave administrativa configurada na API.</p>
+      <label
+        >Chave de acesso<input
+          type="password"
+          name="adminKey"
+          required
+          minlength="16"
+          [(ngModel)]="adminKey" /></label
+      ><button class="button primary" [disabled]="busy || adminKey.length < 16">
+        Acessar painel
+      </button>
+    </form>
+  </section>
+} @else {
+  <section class="admin-layout">
+    <aside class="sidebar">
+      <span class="eyebrow">PAINEL STETICA</span>
+      @for (m of menu; track m.key) {
+        <button [class.active]="tab === m.key" (click)="openTab(m.key)">
+          {{ m.label }} <span>↗</span>
+        </button>
+      }
+      <button class="exit" (click)="leaveAdmin()">Sair do painel</button>
+    </aside>
+    <div class="admin-content">
+      <span class="eyebrow">ADMINISTRATIVO</span>
+      <h1>{{ title }}</h1>
+      @if (loading) {
+        <p role="status">Carregando…</p>
+      }
+      @if (tab === "resumo") {
+        <div class="stat-grid">
+          @for (
+            s of [
+              { label: "Clientes ativos", value: summary.clientes },
+              { label: "Produtos ativos", value: summary.produtos },
+              { label: "Serviços ativos", value: summary.servicos },
+              { label: "Pedidos registrados", value: summary.pedidos },
+              { label: "Pedidos em aberto", value: summary.abertos },
+              { label: "Unidades em estoque", value: summary.unidades },
+            ];
+            track s.label
+          ) {
+            <article class="panel stat">
+              <span>{{ s.label }}</span
+              ><strong>{{ s.value }}</strong>
+            </article>
+          }
+        </div>
+        <div class="panel welcome">
+          <h2>Tudo pronto para cuidar do seu negócio.</h2>
+          <p>
+            Comece por categorias, funcionários e produtos. Registre uma entrada
+            para disponibilizar os produtos na loja.
+          </p>
+          <button class="button primary" (click)="openTab('categorias')">
+            Gerenciar categorias ↗
+          </button>
+        </div>
+      } @else {
+        <div class="admin-toolbar">
+          <form (ngSubmit)="findId()">
+            <input
+              name="idSearch"
+              type="number"
+              min="1"
+              [(ngModel)]="idSearch"
+              placeholder="Consultar por ID"
+              aria-label="Consultar registro por ID"
+            /><button class="button outline">Consultar</button>
+          </form>
+          @if (tab === "pedidos") {
+            <select
+              aria-label="Filtrar situação"
+              [(ngModel)]="statusFilter"
+              (change)="openTab('pedidos')"
+            >
+              <option value="">Todas as situações</option>
+              <option>Aberto</option>
+              <option>Em processamento</option>
+              <option>Concluído</option>
+              <option>Cancelado</option>
+            </select>
+          }
+          <button class="button outline" (click)="openTab(tab)">
+            Atualizar
+          </button>
+        </div>
+        <div class="table-wrap panel">
+          <table>
+            <thead>
+              <tr>
+                @for (c of columns; track c) {
+                  <th>{{ label(c) }}</th>
+                }
+                @if (canEdit || tab === "pedidos") {
+                  <th>Ações</th>
+                }
+              </tr>
+            </thead>
+            <tbody>
+              @for (row of rows; track row.id) {
+                <tr>
+                  @for (c of columns; track c) {
+                    <td>{{ display(row, c) }}</td>
+                  }
+                  @if (canEdit) {
+                    <td class="row-actions">
+                      <button (click)="edit(row)">Editar</button
+                      ><button [disabled]="busy" (click)="remove(row)">
+                        {{ tab === "categorias" ? "Excluir" : "Desativar" }}
+                      </button>
+                    </td>
+                  }
+                  @if (tab === "pedidos") {
+                    <td>
+                      <button class="text-button" (click)="orderDetail(row.id)">
+                        Detalhes ↗
+                      </button>
+                    </td>
+                  }
+                </tr>
+              } @empty {
+                <tr>
+                  <td [attr.colspan]="columns.length + 1">
+                    Nenhum registro encontrado.
+                  </td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+        @if (canCreate || editing) {
+          <form
+            class="panel editor"
+            id="editor"
+            #editor="ngForm"
+            (ngSubmit)="save(editor)"
+          >
+            <h2>{{ editing ? "Editar #" + editing : "Novo registro" }}</h2>
+            <div class="form-grid">
+              @for (f of fields; track f.key) {
+                <label
+                  >{{ f.label }}
+                  @if (f.options) {
+                    <select
+                      [name]="f.key"
+                      [(ngModel)]="model[f.key]"
+                      [required]="!!f.required"
+                      [disabled]="f.key === 'tipo' && !!editing"
+                    >
+                      @for (o of f.options; track o.value) {
+                        <option [ngValue]="o.value">{{ o.label }}</option>
+                      }
+                    </select>
+                  } @else {
+                    <input
+                      [name]="f.key"
+                      [type]="f.type || 'text'"
+                      [(ngModel)]="model[f.key]"
+                      [required]="!!f.required"
+                      [min]="f.min ?? ''"
+                      [max]="f.type === 'number' ? (f.max ?? '') : ''"
+                      [attr.maxlength]="
+                        f.type === 'number' || f.type === 'date' ? null : f.max
+                      "
+                      [pattern]="f.pattern || ''"
+                      [step]="
+                        f.key === 'preco' || f.key === 'valorUnitario'
+                          ? '0.01'
+                          : '1'
+                      "
+                      #field="ngModel"
+                    />
+                    @if (field.invalid && (field.touched || editor.submitted)) {
+                      <small class="invalid">Informe um valor válido.</small>
+                    }
+                  }
+                </label>
+              }
+            </div>
+            <div class="actions">
+              <button class="button primary" [disabled]="busy">
+                {{ busy ? "Salvando…" : "Salvar registro" }}</button
+              ><button
+                type="button"
+                class="button outline"
+                (click)="resetForm(editor)"
+              >
+                Limpar / cancelar edição
+              </button>
+            </div>
+          </form>
+        }
+      }
+    </div>
+  </section>
+}
+<app-record-detail
+  [detail]="detail"
+  [admin]="true"
+  [busy]="busy"
+  (closed)="detail = null"
+  (statusChange)="changeStatus($event)"
+/>
